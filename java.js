@@ -14,45 +14,35 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-function getHumanChoice() {
-    humanChoice = window.prompt("What will you play?", "Rock, Paper, Scissors");
+var rock = document.getElementById("rock");
+var paper = document.getElementById("paper");
+var scissors = document.getElementById("scissors");
+
+rock.addEventListener("click", () => playRound("Rock"));
+paper.addEventListener("click", () => playRound("Paper"));
+scissors.addEventListener("click", () => playRound("Scissors"));
+
+var outcome = document.querySelector("#outcome")
+
+// Updated playRound function
+
+function playRound(button) {
+    var outcome = document.querySelector("#outcome")
     
-    return humanChoice;
-}
+    humanChoice = button.toLowerCase()[0].toUpperCase() + button.toLowerCase().slice(1);
+    computerChoice = getComputerChoice();
 
-function capitalize(string) {
-    return string.toLowerCase()[0].toUpperCase() + string.toLowerCase().slice(1);
-}
-
-function playRound(humanChoice, computerChoice) {
-    humanChoice = capitalize(humanChoice);
-    computerChoice = capitalize(computerChoice);
     if ((humanChoice === "Paper" && computerChoice === "Rock") || (humanChoice === "Rock" && computerChoice === "Scissors")|| (humanChoice === "Scissors" && computerChoice === "Paper")) {
         console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
+        outcome.textContent = `You win! ${humanChoice} beats ${computerChoice}.`;
         humanScore++;
     } else if (humanChoice === computerChoice) {
-        console.log(`Both opponents chose ${humanChoice}, it's a tie!`);     
+        console.log(`Both opponents chose ${humanChoice}, it's a tie!`);  
+        outcome.textContent = `Both opponents chose ${humanChoice}, it's a tie!`;
     } else {
         console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
+        outcome.textContent = `You lose! ${computerChoice} beats ${humanChoice}.`;
         computerScore++;
     }
-
-}
-
-
-function playGame() {
- 
-humanScore = 0;
-computerScore = 0;
-
-for (i = 0; i < 5; i++) {
-    computerSelection = getComputerChoice();
-    humanSelection = getHumanChoice();
-
-    playRound(humanSelection, computerSelection);
-
-}
-
-    console.log(`Final Score: ${humanScore}-${computerScore}`);
 
 }
